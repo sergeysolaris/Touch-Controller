@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TouchExt { 							//Some extention of UnityEngine.Input.Touch
+public class TouchExt {							//Some extention of UnityEngine.Input.Touch
 	public int id;
 	public Vector2 startPos;
 	public Vector2 curPos;
@@ -167,7 +167,11 @@ public class TouchController : MonoBehaviour {
 	}
 
 	void TriggerTap(Vector2 position) {
-		Debug.Log("Tap Detected " + position);
+		if (tapReceivers.Count > 0) {
+			foreach (GameObject g in tapReceivers) {
+				g.SendMessage("TriggerTap", position);
+			}
+		}
 	}
 
 	void TriggerSwipe(int fId, bool isHorizontal) {
